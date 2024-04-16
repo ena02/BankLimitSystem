@@ -1,0 +1,4 @@
+CREATE TABLE expense_category (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    category_name VARCHAR(255) NOT NULL
+)
