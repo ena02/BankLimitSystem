@@ -4,7 +4,10 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZonedDateTime;
 
 @Data
 @Entity(name = "transaction_table")
@@ -31,7 +34,7 @@ public class TransactionEntity {
     private Integer expenseCategoryId;
 
     @Column(name = "datetime")
-    private LocalDateTime dateTime;
+    private ZonedDateTime dateTime;
 
     @Column(name = "limit_exceeded")
     private Boolean limitExceeded;
