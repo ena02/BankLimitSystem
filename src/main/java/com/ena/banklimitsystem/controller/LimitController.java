@@ -19,7 +19,7 @@ public class LimitController {
         return limitService.getLimitById(id);
     }
 
-    @PostMapping("/add")
+    @PostMapping("/addLimit")
     public void addLimit(@RequestBody LimitEntity limitEntity) {
         limitService.addLimit(limitEntity);
     }
@@ -27,5 +27,10 @@ public class LimitController {
     @GetMapping("/allLimits")
     public List<LimitEntity> getAllLimits() {
         return limitService.getAllLimits();
+    }
+
+    @GetMapping("/lastLimit")
+    public LimitEntity getLastLimit() {
+        return limitService.lastLimit();
     }
 }

@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Data
 @Entity(name = "limit_table")
@@ -31,5 +32,5 @@ public class LimitEntity {
     private BigDecimal remainingLimit;
 
     @Column(name = "limit_dateTIME")
-    private LocalDateTime limitDatetime;
+    private ZonedDateTime limitDatetime;
 }

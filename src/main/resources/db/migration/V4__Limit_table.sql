@@ -5,7 +5,7 @@ CREATE TABLE limit_table (
     expense_category_id INT NOT NULL,
     limit_sum DECIMAL(19, 2) DEFAULT 1000.00 NOT NULL,
     remaining_limit DECIMAL(19, 2) NOT NULL,
-    limit_dateTIME TIMESTAMP WITH TIME ZONE NOT NULL,
+    limit_dateTIME timestamptz NOT NULL,
     CONSTRAINT fk_user_id
         FOREIGN KEY(user_id)
             REFERENCES account(id),
