@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -27,13 +28,12 @@ public class LimitService {
         System.out.println(limits.size());
         if (!limits.isEmpty()) {
             LimitEntity lustLimit = findLastDate(limits);
-            System.out.println(lustLimit);
             limit.setRemainingLimit(limit.getLimitSum().subtract(lustLimit.getLimitSum().subtract(lustLimit.getRemainingLimit())) );
-            System.out.println(limit.getLimitSum().subtract(lustLimit.getLimitSum().subtract(lustLimit.getRemainingLimit())));
         } else {
             limit.setRemainingLimit(limit.getLimitSum());
         }
 
+        limit.setCurrencyShortname("USD");
         limit.setLimitDatetime(ZonedDateTime.now());
         limitRepository.save(limit);
     }
@@ -48,6 +48,33 @@ public class LimitService {
 
     public List<LimitEntity> findAllByUserIdAndExpenseId(Integer userId, Integer expenseId) {
         return limitRepository.findAllByUserIdAndExpenseCategoryId(userId, expenseId);
+    }
+
+    public Integer isExceeded(Integer userId, Integer expenseId, BigDecimal transactionSum) {
+
+        LimitEntity limitEntity;
+
+        try {
+            limitEntity = findLastDate(limitRepository.findAllByUserIdAndExpenseCategoryId(userId, expenseId));
+        } catch (NoSuchElementException e) {
+            LimitEntity newLimit = new LimitEntity();
+            newLimit.setUserId(userId);
+            newLimit.setExpenseCategoryId(expenseId);
+            newLimit.setLimitSum(BigDecimal.valueOf(1000));
+            addLimit(newLimit);
+            limitEntity = findLastDate(limitRepository.findAllByUserIdAndExpenseCategoryId(userId, expenseId));
+        }
+
+
+        if (limitEntity.getRemainingLimit().compareTo(transactionSum) < 0) {
+            limitEntity.setRemainingLimit(limitEntity.getRemainingLimit().subtract(transactionSum));
+            limitRepository.save(limitEntity);
+            return limitEntity.getId();
+        } else {
+            limitEntity.setRemainingLimit(limitEntity.getRemainingLimit().subtract(transactionSum));
+            limitRepository.save(limitEntity);
+            return -1;
+        }
     }
 
     private LimitEntity findLastDate(List<LimitEntity> limitList) {
