@@ -3,6 +3,7 @@ server:
 
 cloud:
   db-host: localhost
+  twelvedata-apikey: 97677735327f42f8a065a0a5f5949f40
 
 spring:
   application:
