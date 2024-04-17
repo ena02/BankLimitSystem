@@ -19,3 +19,6 @@
   сервис доступен на порту 8081
 
   не забудьте собрать .jar файл
+
+
+Ссылка на swagger-ui: http://localhost:8081/swagger-ui/index.html#/
