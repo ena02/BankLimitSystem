@@ -39,7 +39,7 @@ public class TransactionController {
         return transactionService.createTransaction(transactionEntity);
     }
 
-    @GetMapping("/transactionByUserId/{id}")
+    @GetMapping("/exceededTransactionsByUserId/{id}")
     public List<TransactionLimitDTO> getTransactionsByUserId(@PathVariable("id") Integer id) {
         return transactionService.getAllTransactionByUserId(id);
     }
