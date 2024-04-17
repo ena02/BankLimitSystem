@@ -11,7 +11,7 @@ spring:
     name: bank-limit-system
   jpa:
     database: POSTGRESQL
-    show-sql: true
+    show-sql: false
     hibernate:
       ddl-auto: none
   datasource:
