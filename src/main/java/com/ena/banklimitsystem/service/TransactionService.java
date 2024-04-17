@@ -25,7 +25,9 @@ public class TransactionService {
     public TransactionEntity createTransaction(TransactionEntity transaction) {
 
         if (transaction.getDateTime() == null) transaction.setDateTime(ZonedDateTime.now());
-        Integer limitId = limitService.isExceeded(transaction.getAccountFrom(), transaction.getExpenseCategoryId(), transaction.getSum());
+
+
+        Integer limitId = limitService.isExceeded(transaction.getAccountFrom(), transaction.getExpenseCategoryId(), transaction.getSum(), transaction.getCurrencyShortname());
 
         if (limitId > 0) {
             transaction.setLimitExceeded(true);

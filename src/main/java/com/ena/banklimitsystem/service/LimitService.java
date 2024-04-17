@@ -16,6 +16,7 @@ import java.util.Optional;
 public class LimitService {
 
     private final LimitRepository limitRepository;
+    private final CurrencyRateService currencyRateService;
 
     public LimitEntity getLimitById(Integer limitId) {
         return limitRepository.findById(limitId).get();
@@ -50,7 +51,7 @@ public class LimitService {
         return limitRepository.findAllByUserIdAndExpenseCategoryId(userId, expenseId);
     }
 
-    public Integer isExceeded(Integer userId, Integer expenseId, BigDecimal transactionSum) {
+    public Integer isExceeded(Integer userId, Integer expenseId, BigDecimal transactionSum, String currency) {
 
         LimitEntity limitEntity;
 
@@ -63,6 +64,11 @@ public class LimitService {
             newLimit.setLimitSum(BigDecimal.valueOf(1000));
             addLimit(newLimit);
             limitEntity = findLastDate(limitRepository.findAllByUserIdAndExpenseCategoryId(userId, expenseId));
+        }
+
+        if (!currency.equals("USD")) {
+            BigDecimal rate = currencyRateService.getCurrencyRate("USD", currency).getRate();
+            transactionSum = transactionSum.divide(rate, 5 , BigDecimal.ROUND_HALF_UP);
         }
 
 
