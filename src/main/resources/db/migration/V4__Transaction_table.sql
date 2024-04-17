@@ -7,6 +7,7 @@ CREATE TABLE transaction_table (
     expense_category_id INT NOT NULL,
     datetime timestamptz NOT NULL,
     limit_exceeded BOOLEAN NOT NULL DEFAULT FALSE,
+    exceeded_limit_id INT,
     CONSTRAINT fk_account_from
         FOREIGN KEY(account_from)
             REFERENCES account(id),
@@ -15,5 +16,8 @@ CREATE TABLE transaction_table (
             REFERENCES account(id),
     CONSTRAINT fk_expense_category_id
         FOREIGN KEY(expense_category_id)
-            REFERENCES expense_category(id)
+            REFERENCES expense_category(id),
+    CONSTRAINT fk_exceeded_limit_id
+        FOREIGN KEY(exceeded_limit_id)
+            REFERENCES limit_table(id)
 )
