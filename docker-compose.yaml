@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_DB=bank_limit_system
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+
+
+  bank-limit-system:
+    build: .
+    ports:
+      - "8081:8081"
+    environment:
+      - cloud_db_host=postgres
+      - cloud_api_url=https://api.twelvedata.com/exchange_rate
+      - twelvedata_apikey=97677735327f42f8a065a0a5f5949f40
+      - spring_application_name=bank-limit-system
+      - spring_jpa_database=POSTGRESQL
+      - spring_jpa_show-sql=true
+      - spring_hibernate_ddl-auto=none
+      - spring_datasource_url=jdbc:postgresql://postgres:5432/bank_limit_system
+      - spring_datasource_username=postgres
+      - spring_datasource_password=postgres
+      - spring_datasource_driver-class-name=org.postgresql.Driver
+      - spring_flyway_url=jdbc:postgresql://postgres:5432/bank_limit_system
+      - spring_flyway_user=postgres
+      - spring_flyway_password=postgres
+    depends_on:
+      - postgres
