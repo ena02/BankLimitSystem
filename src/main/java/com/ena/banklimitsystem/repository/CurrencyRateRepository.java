@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CurrencyRateRepository extends CrudRepository<CurrencyRateEntity, Integer> {
+
+    CurrencyRateEntity findByBaseCurrencyAndQuoteCurrency(String fromCurrency, String toCurrency);
 }
