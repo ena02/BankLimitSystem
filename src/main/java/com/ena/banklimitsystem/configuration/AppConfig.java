@@ -19,7 +19,7 @@ public class AppConfig {
         return new OpenAPI()
                 .info(new Info()
                         .title("Transaction Limit Service")
-                        .description("Некое описание этого")
+                        .description("Лимит сервис")
                         .version("0.0.1")
 
                 );
