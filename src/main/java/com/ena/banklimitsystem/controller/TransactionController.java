@@ -1,5 +1,6 @@
 package com.ena.banklimitsystem.controller;
 
+import com.ena.banklimitsystem.dto.TransactionLimitDTO;
 import com.ena.banklimitsystem.model.TransactionEntity;
 import com.ena.banklimitsystem.service.TransactionService;
 import lombok.RequiredArgsConstructor;
@@ -27,5 +28,10 @@ public class TransactionController {
     @PostMapping("/createTransaction")
     public TransactionEntity createTransaction(@RequestBody TransactionEntity transactionEntity) {
         return transactionService.createTransaction(transactionEntity);
+    }
+
+    @GetMapping("/transactionByUserId/{id}")
+    public List<TransactionLimitDTO> getTransactionsByUserId(@PathVariable("id") Integer id) {
+        return transactionService.getAllTransactionByUserId(id);
     }
 }
