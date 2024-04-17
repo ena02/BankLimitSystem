@@ -4,9 +4,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
 
 @Data
@@ -38,4 +35,7 @@ public class TransactionEntity {
 
     @Column(name = "limit_exceeded")
     private Boolean limitExceeded;
+
+    @Column(name = "exceeded_limit_id")
+    private Integer exceededLimitId;
 }
