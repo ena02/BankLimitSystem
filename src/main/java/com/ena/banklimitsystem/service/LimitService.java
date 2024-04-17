@@ -22,7 +22,7 @@ public class LimitService {
         return limitRepository.findById(limitId).get();
     }
 
-    public void addLimit(LimitEntity limit) {
+    public LimitEntity addLimit(LimitEntity limit) {
 
         List<LimitEntity> limits = limitRepository.findAllByUserIdAndExpenseCategoryId(limit.getUserId(), limit.getExpenseCategoryId());
 
@@ -37,6 +37,7 @@ public class LimitService {
         limit.setCurrencyShortname("USD");
         limit.setLimitDatetime(ZonedDateTime.now());
         limitRepository.save(limit);
+        return limit;
     }
 
     public List<LimitEntity> getAllLimits() {
