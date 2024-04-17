@@ -7,6 +7,7 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.ZonedDateTime;
 
 @Data
 @Entity(name = "currency_rate")
@@ -26,5 +27,5 @@ public class CurrencyRateEntity {
     private BigDecimal rate;
 
     @Column(name = "datetime")
-    private Timestamp datetime;
+    private ZonedDateTime datetime;
 }

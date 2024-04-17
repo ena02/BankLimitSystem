@@ -3,6 +3,6 @@ CREATE TABLE currency_rate (
     base_currency CHAR(3) NOT NULL,
     quote_currency CHAR(3) NOT NULL,
     exchange_rate DECIMAL(19, 2) NOT NULL, -- Example precision and scale
-    datetime TIMESTAMP NOT NULL,
+    datetime timestamptz NOT NULL,
     UNIQUE (base_currency, quote_currency)
 );
